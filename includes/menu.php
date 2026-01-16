@@ -8,8 +8,10 @@
         $stmtusuario = $pdo->query("SELECT foto, nombre FROM usuario LIMIT 1");
         $perfilusuario = $stmtusuario->fetch();
 
-        $stmtmenu = $pdo->query("SELECT OPCION, SECCION FROM menu ORDER BY ORDEN ASC");
+        $stmtmenu = $pdo->query("SELECT OPCION, SECCION FROM menu WHERE ID!=9 AND ID!=10 AND ID!=11 ORDER BY ORDEN ASC");
         $menupagina = $stmtmenu->fetchAll();
+
+        $stmtmenuusuario = $pdo->query("SELECT OPCION, SECCION FROM MENU WHERE ID=9 AND ID=10 AND ID=11");
 
 ?>
 
