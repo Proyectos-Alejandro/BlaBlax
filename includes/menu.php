@@ -16,6 +16,7 @@
 ?>
 
 
+
 <div class="logo">
 
         <img src="../assets/img/<?=$empresa['logo']?>" alt="<?=$empresa['nombre']?>" height="50" width="100">
