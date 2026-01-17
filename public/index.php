@@ -22,6 +22,8 @@ if (!isset($_SESSION['user_id'])) {
     <?php include '../includes/menu.php'; ?>
     <hr/>
     <?php include '../includes/header.php'; ?>
+    <hr>
+    <?php include '../includes/buscarviaje.php'; ?>
     <hr/>
     <?php include '../includes/estadisticas.php'; ?>
     <hr/>
@@ -30,7 +32,6 @@ if (!isset($_SESSION['user_id'])) {
         <?php include '../includes/galeria.php'; ?>
         <hr/>
     </main>
-    <?php include '../includes/buscarviaje.php'; ?>
     <hr/>
     <?php include '../includes/footer.php'; ?>
 
