@@ -11,7 +11,9 @@
         $stmtmenu = $pdo->query("SELECT OPCION, SECCION FROM menu WHERE ID!=9 AND ID!=10 AND ID!=11 ORDER BY ORDEN ASC");
         $menupagina = $stmtmenu->fetchAll();
 
-        $stmtmenuusuario = $pdo->query("SELECT OPCION, SECCION FROM MENU WHERE ID=9 AND ID=10 AND ID=11");
+        $stmtmenuusuario = $pdo->query("SELECT OPCION, SECCION FROM MENU WHERE ID=9 OR ID=10 OR ID=11");
+        $menuusuario = $stmtmenuusuario->fetchall();
+
 
 ?>
 
@@ -29,13 +31,15 @@
 
         <ul>
                 <?php if (count($menupagina) > 0): ?>
-                        <?php foreach ($menupagina as $seccion): ?>
+                        <?php foreach ($menupagina as $menu): ?>
                         <li>
-                                <a href="<?= $seccion['SECCION'] ?>"><?= strtoupper($seccion['OPCION']) ?></a>
+                                <a href="<?= $menu['SECCION'] ?>"><?= strtoupper($menu['OPCION']) ?></a>
                         </li>
                 <?php endforeach; ?>
                 <?php else: ?>
-                        <li><a href="#buscar">¡MENÚ VACÍO!</a></li>
+                        <li>
+                                <a href="#buscar">MENÚ VACÍO</a>
+                        </li>
                 <?php endif; ?>
         </ul>
 
@@ -45,6 +49,23 @@
 <div class="perfil">
 
         <img src="../assets/img/perfilusuario/<?=$perfilusuario['foto']?>" alt="<?=$perfilusuario['nombre']?>" height="50" width="50">
+
+        <div class="submenu">
+                <ul>
+                        <?php if (count($menuusuario) > 0): ?>
+                                <?php foreach ($menuusuario as $submenu): ?>
+                                <li>
+                                        <a href="<?= $submenu['SECCION'] ?>"><?= strtoupper($submenu['OPCION']) ?></a>
+                                </li>
+                        <?php endforeach; ?>
+                        <?php else: ?>
+                                <li>
+                                        <a href="#buscar">MENÚ VACÍO</a>
+                                </li>
+                        <?php endif; ?>
+                </ul>
+
+        </div>
 
 </div>
 
