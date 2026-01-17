@@ -6,7 +6,21 @@
     $infoviaje = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
-<?php if (count($infoviaje) > 0): ?>
+
+
+
+<div class="filtros_buscar">
+    <form action="index.php">
+        <input type="text" name="filtro_origen" placeholder="Origen">
+        <input type="text" name="filtro_destino" placeholder="Destino">
+        <input type="date" name="filtro_fecha">
+        <input type="text" name="filtro_plazas" placeholder="Nº de Plazas">
+        <button type="submit">Buscar</button>
+    </form>
+</div>
+<div class="filtro_resultado">
+
+    <?php if (count($infoviaje) > 0): ?>
     <div class="contenedor_viajes">
         <?php foreach ($infoviaje as $viaje): ?>
             <div class="viaje">
@@ -24,6 +38,12 @@
         <p>No hay fotos en la base de datos.</p>
     <?php endif; ?>
     </div>
+
+</div>
+
+
+
+
 
 
 
