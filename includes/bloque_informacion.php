@@ -17,6 +17,11 @@
                 <div class="info_imagen">
                     <img src="<?php echo ($info['IMG']); ?>" alt="<?php echo ($info['img_desc']); ?>">
                 </div>
+                <div class="info_boton">
+                    <?php if (!empty($info['BOTON'])): ?>
+                        <button type="button"><?php echo ($info['BOTON']); ?></button>
+                    <?php endif; ?>
+                </div>
             <?php endforeach; ?>
         </div>
     <?php else: ?>
