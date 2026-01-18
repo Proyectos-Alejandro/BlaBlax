@@ -31,30 +31,30 @@
         $filtro_texto = "SELECT U.NOMBRE, U.APELLIDO1, U.APELLIDO2, U.FOTO, U.COCHE, BPV.ORIGEN, BPV.DESTINO, BPV.FECHA_HORA, BPV.PLAZAS_TOTALES, BPV.PRECIO, BPV.DESCRIPCION_EXTRA FROM bloque_publicar_viaje BPV INNER JOIN USUARIO U ON U.ID=BPV.CONDUCTOR_ID WHERE 1=1";
 
         if (!empty($filtro_origen)) {
-            $filtro_texto .= " AND BPV.ORIGEN LIKE origen";
+            $filtro_texto .= " AND BPV.ORIGEN LIKE :origen";
         }
         if (!empty($filtro_destino)) {
-            $filtro_texto .= " AND BPV.DESTINO LIKE destino";
+            $filtro_texto .= " AND BPV.DESTINO LIKE :destino";
         }
         if (!empty($filtro_fecha)) {
             $filtro_texto .= " AND DATE(BPV.FECHA_HORA) = fecha";
         }
         if (!empty($filtro_plazas)) {
-            $filtro_texto .= " AND BPV.PLAZAS_TOTALES >= plazas";
+            $filtro_texto .= " AND BPV.PLAZAS_TOTALES >= :plazas";
         }
 
         $stmt = $pdo->prepare($filtro_texto);
         if (!empty($filtro_origen)) {
-            $stmt->bindValue('origen', '%' . $filtro_origen . '%');
+            $stmt->bindValue(':origen', '%' . $filtro_origen . '%');
         }
         if (!empty($filtro_destino)) {
-            $stmt->bindValue('destino', '%' . $filtro_destino . '%');
+            $stmt->bindValue(':destino', '%' . $filtro_destino . '%');
         }
         if (!empty($filtro_fecha)) {
-            $stmt->bindValue('fecha', $filtro_fecha);
+            $stmt->bindValue(':fecha', $filtro_fecha);
         }
         if (!empty($filtro_plazas)) {
-            $stmt->bindValue('plazas', (int)$filtro_plazas);
+            $stmt->bindValue(':plazas', (int)$filtro_plazas);
         }
 
         $stmt->execute();
