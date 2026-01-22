@@ -16,8 +16,9 @@ if (isset($_POST['btn_registro'])) {
     if (strlen($password) < 7) { 
         
         $mensaje = "La contraseña es muy sencilla, debe tener al menos 7 caracteres";
-    } 
-    else {
+    } else if (!preg_match('/[A-Z]/', $password) || !preg_match('/[0-9]/', $password) || !preg_match('/[^\w]/', $password)) {
+        $mensaje = "La contraseña debe tener como mínimo una mayúscula, un número y un carácter especial";
+    }else{
         
         
         $check = $pdo->prepare("SELECT ID FROM usuario WHERE CORREO = :email");
