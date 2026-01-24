@@ -17,7 +17,7 @@
 
             <?php if (count($viajes) > 0): ?>
                 <div class="contenedor_origen">
-                    <input list="filtro_origen" name="filtro_origen">
+                    <input list="filtro_origen" name="filtro_origen" placeholder="Origen">
                     <datalist id="filtro_origen">
                         <?php foreach ($viajes as $viaje): ?>
                             <option value="<?php echo $viaje['NOMBRE_CIUDAD']; ?>">
@@ -26,7 +26,7 @@
                 </div>
             <?php else: ?>
                 <div class="contenedor_origen">
-                        <input list="filtro_origen" name="filtro_origen">
+                        <input list="filtro_origen" name="filtro_origen" placeholder="Origen">
                         <datalist id="filtro_origen">
                         <option value="">
                         </datalist>  
@@ -35,7 +35,7 @@
 
             <?php if(count($viajes) > 0): ?>
                 <div class="contenedor_destino">
-                    <input list="filtro_destino" name="filtro_destino">
+                    <input list="filtro_destino" name="filtro_destino" placeholder="Destino">
                     <datalist id="filtro_destino">
                         <?php foreach ($viajes as $viaje): ?>
                             <option value="<?php echo $viaje['NOMBRE_CIUDAD']; ?>">
@@ -44,7 +44,7 @@
                 </div>
             <?php else: ?>
                 <div class="contenedor_destino">
-                        <input list="filtro_destino" name="filtro_destino">
+                        <input list="filtro_destino" name="filtro_destino" placeholder="Destino">
                         <datalist id="filtro_destino">
                         <option value="">
                         </datalist>  
@@ -142,23 +142,3 @@
     </div>
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
