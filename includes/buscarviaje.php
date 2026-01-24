@@ -2,7 +2,7 @@
     require_once '../config/db.php';
 
 
-    $stmt = $pdo->query("SELECT U.NOMBRE, U.APELLIDO1, U.APELLIDO2, U.FOTO, U.COCHE, BPV.ORIGEN, BPV.DESTINO, BPV.FECHA_HORA, BPV.PLAZAS_TOTALES, BPV.PRECIO, BPV.DESCRIPCION_EXTRA FROM viajes BPV INNER JOIN USUARIO U ON U.ID=BPV.CONDUCTOR_ID;");
+    $stmt = $pdo->query("SELECT U.NOMBRE, U.APELLIDO1, U.APELLIDO2, U.COCHE, U.FOTO, C1.NOMBRE_CIUDAD AS ORIGEN, C2.NOMBRE_CIUDAD AS DESTINO, V.FECHA_HORA, V.PLAZAS_TOTALES, V.PRECIO, V.DESCRIPCION_EXTRA FROM VIAJES V INNER JOIN USUARIO U ON U.ID = V.CONDUCTOR_ID INNER JOIN CIUDADES C1 ON C1.ID = V.ID_ORIGEN INNER JOIN CIUDADES C2 ON C2.ID = V.ID_DESTINO;");
     $infoviaje = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -11,16 +11,51 @@
 
 <div class="filtros_buscar">
     <form action="index.php">
-        <input type="text" name="filtro_origen" placeholder="Origen">
-        <input type="text" name="filtro_destino" placeholder="Destino">
+
+            <?php if (count($infoviaje) > 0): ?>
+                <div class="contenedor_origen">
+                    <input list="filtro_origen" name="filtro_origen">
+                    <datalist id="filtro_origen">
+                        <?php foreach ($infoviaje as $viaje): ?>
+                            <option value="<?php echo $viaje['ORIGEN']; ?>">
+                        <?php endforeach; ?>
+                    </datalist>  
+                </div>
+            <?php else: ?>
+                <div class="contenedor_origen">
+                        <input list="filtro_origen" name="filtro_origen">
+                        <datalist id="filtro_origen">
+                        <option value="">
+                        </datalist>  
+                </div>
+            <?php endif; ?>  
+
+            <?php if(count($infoviaje) > 0): ?>
+                <div class="contenedor_destino">
+                    <input list="filtro_destino" name="filtro_destino">
+                    <datalist id="filtro_destino">
+                        <?php foreach ($infoviaje as $viaje): ?>
+                            <option value="<?php echo $viaje ['DESTINO']; ?>">
+                        <?php endforeach; ?>
+                    </datalist>
+                </div>
+            <?php else: ?>
+                <div class="contenedor_destino">
+                        <input list="filtro_destino" name="filtro_destino">
+                        <datalist id="filtro_destino">
+                        <option value="">
+                        </datalist>  
+                </div>
+            <?php endif; ?>  
+        
         <input type="date" name="filtro_fecha">
         <input type="text" name="filtro_plazas" placeholder="Nº de Plazas">
         <button type="submit">Buscar</button>
     </form>
 </div>
+
+
 <div class="filtro_resultado">
-
-
 
     <?php 
         $filtro_origen = $_GET['filtro_origen'] ?? '';
@@ -28,16 +63,16 @@
         $filtro_fecha = $_GET['filtro_fecha'] ?? '';
         $filtro_plazas = $_GET['filtro_plazas'] ?? '';
 
-        $filtro_texto = "SELECT U.NOMBRE, U.APELLIDO1, U.APELLIDO2, U.FOTO, U.COCHE, BPV.ORIGEN, BPV.DESTINO, BPV.FECHA_HORA, BPV.PLAZAS_TOTALES, BPV.PRECIO, BPV.DESCRIPCION_EXTRA FROM viajes BPV INNER JOIN USUARIO U ON U.ID=BPV.CONDUCTOR_ID WHERE 1=1";
+        $filtro_texto = "SELECT U.NOMBRE, U.APELLIDO1, U.APELLIDO2, U.COCHE, U.FOTO, C1.NOMBRE_CIUDAD AS ORIGEN, C2.NOMBRE_CIUDAD AS DESTINO, V.FECHA_HORA, V.PLAZAS_TOTALES, V.PRECIO, V.DESCRIPCION_EXTRA FROM VIAJES V INNER JOIN USUARIO U ON U.ID = V.CONDUCTOR_ID INNER JOIN CIUDADES C1 ON C1.ID = V.ID_ORIGEN INNER JOIN CIUDADES C2 ON C2.ID = V.ID_DESTINO WHERE 1=1";
 
         if (!empty($filtro_origen)) {
-            $filtro_texto .= " AND BPV.ORIGEN LIKE :origen";
+            $filtro_texto .= " AND C1.NOMBRE_CIUDAD LIKE :origen";
         }
         if (!empty($filtro_destino)) {
-            $filtro_texto .= " AND BPV.DESTINO LIKE :destino";
+            $filtro_texto .= " AND C2.NOMBRE_CIUDAD LIKE :destino";
         }
         if (!empty($filtro_fecha)) {
-            $filtro_texto .= " AND DATE(BPV.FECHA_HORA) = fecha";
+            $filtro_texto .= " AND DATE(V.FECHA_HORA) = :fecha";
         }
         if (!empty($filtro_plazas)) {
             $filtro_texto .= " AND BPV.PLAZAS_TOTALES >= :plazas";
@@ -66,6 +101,7 @@
         <?php foreach ($infoviaje as $viaje): ?>
             <div class="viaje">
                 <h3>Viaja con <?php echo ($viaje['NOMBRE'] . ' ' . $viaje['APELLIDO1'] . ' ' . $viaje['APELLIDO2']); ?></h3>
+                <img src="<?php echo '../assets/img/perfilusuario/' . $viaje['FOTO']; ?>" alt="Foto <?php echo $viaje['NOMBRE']; ?>" height="50" width="50">
                 <p>Origen: <?php echo $viaje['ORIGEN']; ?></p>
                 <p>Destino: <?php echo $viaje['DESTINO']; ?></p>
                 <p>Fecha y hora: <?php echo $viaje['FECHA_HORA']; ?></p>
