@@ -5,10 +5,10 @@ require_once '../config/db.php';
     $stmtUsuarios = $pdo->query("SELECT COUNT(*) FROM usuario");
     $numUsuarios = $stmtUsuarios->fetchColumn();
 
-    $stmtViajes = $pdo->query("SELECT COUNT(*) FROM bloque_publicar_viaje");
+    $stmtViajes = $pdo->query("SELECT COUNT(*) FROM viajes");
     $numViajes = $stmtViajes->fetchColumn();
 
-    $stmtReservas = $pdo->query("SELECT COUNT(*) FROM bloque_reservar_viaje");
+    $stmtReservas = $pdo->query("SELECT COUNT(*) FROM reservas");
     $numReservas = $stmtReservas->fetchColumn();
 
 

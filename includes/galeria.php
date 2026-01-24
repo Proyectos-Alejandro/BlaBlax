@@ -2,7 +2,7 @@
 require_once '../config/db.php';
 
 
-$stmt = $pdo->query("SELECT url, descripcion FROM imagenes where seccion=1");
+$stmt = $pdo->query("SELECT url, descripcion FROM multimedia where seccion=1");
 $fotogaleria = $stmt->fetchAll(); 
 ?>
 

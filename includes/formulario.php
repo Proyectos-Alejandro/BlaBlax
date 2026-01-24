@@ -21,7 +21,7 @@
         }
 
         
-        $stmt = $pdo->prepare("INSERT INTO formulario (nombre, email, descripcion, imagen_aportada) VALUES (?, ?, ?, ?)");
+        $stmt = $pdo->prepare("INSERT INTO formulario_ayuda (nombre, email, descripcion, imagen_aportada) VALUES (?, ?, ?, ?)");
         $stmt->execute([$nombre, $email, $descripcion, $rutafoto]);
 
         echo "<script>window.location.href='index.php';</script>";

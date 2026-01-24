@@ -1,7 +1,7 @@
 <?php 
     require_once '../config/db.php';
 
-    $stmt = $pdo->query("SELECT * FROM bloque_mas_informacion where seccion = 1");
+    $stmt = $pdo->query("SELECT * FROM mas_info where seccion = 1");
     $mas_informacion = $stmt -> fetchAll()
 ?>
 
