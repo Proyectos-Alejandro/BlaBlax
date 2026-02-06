@@ -4,10 +4,7 @@ require_once '../config/db.php';
 
 $stmt = $pdo->query("SELECT url, descripcion FROM multimedia where seccion=2");
 $fotoheader= $stmt->fetchAll(); 
-?>
 
-<?php
-        require_once '../config/db.php';
         
         $stmt = $pdo->query("SELECT logo, nombre FROM empresa LIMIT 1");
 

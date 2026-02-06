@@ -61,11 +61,13 @@
 <div class="filtro_resultado">
 
     <?php 
+        
         $filtro_origen = $_GET['filtro_origen'] ?? '';
         $filtro_destino = $_GET['filtro_destino'] ?? '';
         $filtro_fecha = $_GET['filtro_fecha'] ?? '';
         $filtro_plazas = $_GET['filtro_plazas'] ?? '';
 
+        
         $filtro_texto = "SELECT U.NOMBRE, U.APELLIDO1, U.APELLIDO2, U.COCHE, U.FOTO, C1.NOMBRE_CIUDAD AS ORIGEN, C2.NOMBRE_CIUDAD AS DESTINO, V.FECHA_HORA, V.PLAZAS_TOTALES, V.PRECIO, V.DESCRIPCION_EXTRA FROM VIAJES V INNER JOIN USUARIO U ON U.ID = V.CONDUCTOR_ID INNER JOIN CIUDADES C1 ON C1.ID = V.ID_ORIGEN INNER JOIN CIUDADES C2 ON C2.ID = V.ID_DESTINO WHERE 1=1";
 
         if (!empty($filtro_origen)) {

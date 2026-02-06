@@ -28,6 +28,8 @@ if (!isset($_SESSION['user_id'])) {
     <?php include '../includes/estadisticas.php'; ?>
     <hr id="mas_info">
     <?php include '../includes/bloque_informacion.php'; ?>
+    <hr id="publicarviaje">
+    <?php include '../includes/publicarviaje.php'; ?>
     <hr id="formulario">
     <?php include '../includes/formulario.php'; ?>
     <hr>
