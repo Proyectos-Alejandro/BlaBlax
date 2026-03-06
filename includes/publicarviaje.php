@@ -68,7 +68,7 @@
         $publicar_descripcion = $_POST['filtro_descripcion'] ?? '';
         $publicar_precio = $_POST['filtro_precio'] ?? '';
         $publicar_plazas = $_POST['filtro_plazas'] ?? '';
-        
+        $publicar_conductor = $_SESSION['user_id'];
         
         $filtro_publicacion = "SELECT U.NOMBRE, U.APELLIDO1, U.APELLIDO2, U.COCHE, U.FOTO, C1.NOMBRE_CIUDAD AS ORIGEN, C2.NOMBRE_CIUDAD AS DESTINO, V.FECHA_HORA, V.PLAZAS_TOTALES, V.PRECIO, V.DESCRIPCION_EXTRA FROM VIAJES V INNER JOIN USUARIO U ON U.ID = V.CONDUCTOR_ID INNER JOIN CIUDADES C1 ON C1.ID = V.ID_ORIGEN INNER JOIN CIUDADES C2 ON C2.ID = V.ID_DESTINO WHERE 1=1";
 
@@ -114,9 +114,24 @@
         
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $stmt = $pdo->prepare("INSERT INTO VIAJES (CONDUCTOR_ID, ID_ORIGEN, ID_DESTINO, FECHA_HORA, PLAZAS_TOTALES, PRECIO, DESCRIPCION_EXTRA) VALUES (6, (SELECT ID FROM CIUDADES WHERE NOMBRE_CIUDAD = ? LIMIT 1), (SELECT ID FROM CIUDADES WHERE NOMBRE_CIUDAD = ? LIMIT 1), ?, ?, ?, ?)");
-            $stmt->execute([$publicar_origen, $publicar_destino, $publicar_fecha, $publicar_plazas, $publicar_precio, $publicar_descripcion]);
+
+            $stmtOrigen = $pdo->prepare("SELECT ID FROM CIUDADES WHERE NOMBRE_CIUDAD = ?");
+            $stmtOrigen->execute([$publicar_origen]);
+            $origenRow = $stmtOrigen->fetch(PDO::FETCH_ASSOC);
+            $origenId = $origenRow ? $origenRow['ID'] : null;
+
+            $stmtDestino = $pdo->prepare("SELECT ID FROM CIUDADES WHERE NOMBRE_CIUDAD = ?");
+            $stmtDestino->execute([$publicar_destino]);
+            $destinoRow = $stmtDestino->fetch(PDO::FETCH_ASSOC);
+            $destinoId = $destinoRow ? $destinoRow['ID'] : null;
+
+            if ($origenId && $destinoId) {
+                $stmt = $pdo->prepare("INSERT INTO VIAJES (CONDUCTOR_ID, ID_ORIGEN, ID_DESTINO, FECHA_HORA, PLAZAS_TOTALES, PRECIO, DESCRIPCION_EXTRA) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt->execute([$publicar_conductor, $origenId, $destinoId, $publicar_fecha, $publicar_plazas, $publicar_precio, $publicar_descripcion]);
+            } else {
+                echo "<p>Error: Origen o destino inválido.</p>";
+            }
         }
-        
+            
     ?>
 </div>
