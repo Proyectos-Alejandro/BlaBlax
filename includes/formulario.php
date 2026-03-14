@@ -7,7 +7,7 @@
     if ($accion === 'crear' && $_SERVER['REQUEST_METHOD'] === 'POST') { // SI SE ENVIA UNA FOTO EN EL FORMULARIO SE GUARDA EN LA BASE DE DATOS //
 
         $nombre = $_POST['nombre'];
-        $ID_USUARIO = $_SESSION['user_id']; // OBTENEMOS EL ID DEL USUARIO LOGUEADO //
+        $ID_usuario = $_SESSION['user_id']; // OBTENEMOS EL ID DEL USUARIO LOGUEADO //
         $email = $_POST['email'];
         $descripcion = $_POST['descripcion'];
         $rutafoto = null; 
@@ -23,7 +23,7 @@
 
         
         $stmt = $pdo->prepare("INSERT INTO formulario_ayuda (ID_USUARIO, NOMBRE, EMAIL, DESCRIPCION, IMAGEN_APORTADA) VALUES (?, ?, ?, ?, ?)");
-        $stmt->execute([$ID_USUARIO, $nombre, $email, $descripcion, $rutafoto]);  // ESTO GUARDA LOS DATOS EN LA BASE DE DATOS //
+        $stmt->execute([$ID_usuario, $nombre, $email, $descripcion, $rutafoto]);  // ESTO GUARDA LOS DATOS EN LA BASE DE DATOS //
 
         echo "<script>window.location.href='index.php';</script>";
         exit;
