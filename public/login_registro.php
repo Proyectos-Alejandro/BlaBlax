@@ -74,13 +74,14 @@ if (isset($_POST['btn_login'])) {  // COMPROBAR SI LA INFO EXISTE EN LA BASE DE 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | BLABLAX</title>
+    <title>Login | VIAUNI</title>
+    <link rel="stylesheet" href="../assets/css/style_log_reg.css">
 </head>
 <body class="pagina_login">
 
     <div class="caja_login">
         <div class="info_login">
-            <img src="../assets/img/<?=$empresa['logo']?>" alt="<?=$empresa['nombre']?>" height="50" width="100">
+            <img src="../assets/img/<?=$empresa['logo']?>" alt="<?=$empresa['nombre']?>">
             <h2>Comparte tu viaje a la UAX</h2>
             <p>Conecta, ahorra y viaja cómodo.</p>
         </div>
@@ -109,7 +110,7 @@ if (isset($_POST['btn_login'])) {  // COMPROBAR SI LA INFO EXISTE EN LA BASE DE 
                     <input type="text" name="apellido2" placeholder="Segundo Apellido" required>
                     <input type="email" name="email" placeholder="Correo Electrónico" required>
                     <input type="password" name="password" placeholder="Contraseña" required>
-                    <button type="submit" name="btn_registro" class="btn-full btn-outline">REGISTRARSE</button>
+                    <button type="submit" name="btn_registro" class="btn-full btn-registro">REGISTRARSE</button>
                 </form>
                 <p class="cambiar_texto">¿Ya tienes cuenta? <a href="#">Inicia sesión</a></p>
             </div>

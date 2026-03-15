@@ -14,48 +14,36 @@
         $stmtmenuusuario = $pdo->query("SELECT OPCION, SECCION FROM MENU WHERE ID=9 OR ID=10 OR ID=11");
         $menuusuario = $stmtmenuusuario->fetchall(); // LO MISMO QUE LA ANTERIOR PERO SOLO CON LAS SECCIONES 9, 10 Y 11 //
 
-
 ?>
 
 
-
-<div class="logo">
-
-        <img src="../assets/img/<?=$empresa['logo']?>" alt="<?=$empresa['nombre']?>" height="50" width="100">
-
-</div>
-
-
-
-<div class="menu">
-
-        <ul>
-                <?php if (count($menupagina) > 0): ?>
-                        <?php foreach ($menupagina as $menu): ?>
-                        <li>
-                                <a href="<?= $menu['SECCION'] ?>"><?= strtoupper($menu['OPCION']) ?></a>
-                        </li>
-                <?php endforeach; ?>
-                <?php else: ?>
-                        <li>
-                                <a href="#buscar">MENÚ VACÍO</a>
-                        </li>
-                <?php endif; ?>
-        </ul>
-
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MENU</title>
+        <link rel="stylesheet" href="../assets/css/style_menu.css">
+</head>
+<body>
 
 
-<div class="perfil">
+<div class="menu_container">
+        <div class="logo">
 
-        <img src="../assets/img/perfilusuario/<?=$perfilusuario['foto']?>" alt="<?=$perfilusuario['nombre']?>" height="50" width="50">
+        <a href="#home"><img src="../assets/img/<?=$empresa['logo']?>" alt="<?=$empresa['nombre']?>"> </a>
 
-        <div class="submenu">
+        </div>
+
+
+
+        <div class="menu">
+
                 <ul>
-                        <?php if (count($menuusuario) > 0): ?>
-                                <?php foreach ($menuusuario as $submenu): ?>
+                        <?php if (count($menupagina) > 0): ?>
+                                <?php foreach ($menupagina as $menu): ?>
                                 <li>
-                                        <a href="<?= $submenu['SECCION'] ?>"><?= strtoupper($submenu['OPCION']) ?></a>
+                                        <a href="<?= $menu['SECCION'] ?>"><?= strtoupper($menu['OPCION']) ?></a>
                                 </li>
                         <?php endforeach; ?>
                         <?php else: ?>
@@ -67,6 +55,31 @@
 
         </div>
 
+
+        <div class="perfil">
+
+                <img src="../assets/img/perfilusuario/<?=$perfilusuario['foto']?>" alt="<?=$perfilusuario['nombre']?>" height="50" width="50">
+
+                <div class="submenu">
+                        <ul>
+                                <?php if (count($menuusuario) > 0): ?>
+                                        <?php foreach ($menuusuario as $submenu): ?>
+                                        <li>
+                                                <a href="<?= $submenu['SECCION'] ?>"><?= strtoupper($submenu['OPCION']) ?></a>
+                                        </li>
+                                <?php endforeach; ?>
+                                <?php else: ?>
+                                        <li>
+                                                <a href="#buscar">MENÚ VACÍO</a>
+                                        </li>
+                                <?php endif; ?>
+                        </ul>
+
+                </div>
+
+        </div>
+
 </div>
 
-
+</body>
+</html>

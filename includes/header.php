@@ -11,9 +11,18 @@ $fotoheader= $stmt->fetchAll();
         $empresa = $stmt->fetch();
 ?>
 
-
-<h3><?=$empresa['nombre']?></h3>
-<?php if (count($fotoheader) > 0): ?>  <!-- SI HAY FOTOS EN LA BASE DE DATOS, SE MUESTRAN TODAS LAS FOTOS DE LA SECCIÓN 2-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEADER</title>
+    <link rel="stylesheet" href="../assets/css/style_header.css">
+</head>
+<body>
+    
+    <h3><?=$empresa['nombre']?></h3>
+    <?php if (count($fotoheader) > 0): ?>  <!-- SI HAY FOTOS EN LA BASE DE DATOS, SE MUESTRAN TODAS LAS FOTOS DE LA SECCIÓN 2-->
         <div class="header">
             <?php foreach ($fotoheader as $fotoenseñar): ?>
                 <div class="fotoheader">
@@ -26,3 +35,5 @@ $fotoheader= $stmt->fetchAll();
     <?php endif; ?>
 
 <button>MAS INFORMACION</button> <!-- BOTON DE MAS INFORMACION, NO HACE NADA POR EL MOMENTO -->
+</body>
+</html>
